@@ -1,0 +1,128 @@
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 22px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--color-surface);
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.panel h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 17px;
+  margin-bottom: 16px;
+  color: var(--color-ink);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.summary-item .name {
+  color: var(--color-ink);
+}
+
+.summary-item .qty {
+  color: var(--color-faint);
+  font-size: 11px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: var(--font-body);
+  background: var(--color-surface);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-border-strong);
+}
+
+.form-group .hint {
+  font-size: 11px;
+  color: var(--color-faint);
+  margin-top: 4px;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.payment-option:has(input:checked) {
+  border-color: var(--color-border-strong);
+  background: var(--color-bg);
+}
+
+.coupon-box {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.coupon-box input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: var(--font-body);
+}
+
+.coupon-message {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.coupon-message.success { color: var(--color-success); }
+.coupon-message.error { color: var(--color-danger); }

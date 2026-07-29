@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | Bookstore</title>
+  <link rel="stylesheet" href="admin-style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="admin-header">
+    <h1>📚 Bookstore Admin Panel</h1>
+    <nav>
+      <a href="index.html" style="color:#cfcfff; text-decoration:none; font-size:13px; margin-right:18px;">স্টোরে ফিরে যান</a>
+      <button id="logoutBtn">লগআউট</button>
+    </nav>
+  </header>
+
+  <div class="container" id="adminContent" style="display:none;">
+    <div id="message" class="message"></div>
+
+    <!-- ট্যাব বাটন -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="analytics">Analytics</button>
+      <button class="tab-btn" data-tab="categories">Categories</button>
+      <button class="tab-btn" data-tab="books">Books</button>
+      <button class="tab-btn" data-tab="orders">Orders</button>
+      <button class="tab-btn" data-tab="reviews">Reviews</button>
+      <button class="tab-btn" data-tab="wishlist">Wishlist</button>
+      <button class="tab-btn" data-tab="coupons">Coupons</button>
+      <button class="tab-btn" data-tab="logs">Activity Log</button>
+      <button class="tab-btn" data-tab="users">Users</button>
+      <button class="tab-btn danger-tab" data-tab="datamanage">Data Management</button>
+    </div>
+
+    <!-- ট্যাব ১: Overview -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="value" id="totalUsers">-</div>
+          <div class="label">মোট ইউজার</div>
+        </div>
+        <div class="summary-card">
+          <div class="value" id="totalBooks">-</div>
+          <div class="label">মোট বই</div>
+        </div>
+        <div class="summary-card">
+          <div class="value" id="totalOrders">-</div>
+          <div class="label">মোট অর্ডার</div>
+        </div>
+      </div>
+
+      <div class="overview-grid">
+        <div class="overview-left">
+          <!-- ক্যালেন্ডার + Total Sales -->
+          <div class="panel">
+            <h2>তারিখ অনুযায়ী বিক্রি</h2>
+            <input type="date" id="salesDate" class="date-input" />
+            <div class="sales-result">
+              <div class="value" id="salesAmount">৳0</div>
+              <div class="label">মোট বিক্রি (<span id="salesOrderCount">0</span>টা অর্ডার)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overview-right">
+          <!-- বইয়ের তথ্য তালিকা -->
+          <div class="panel">
+            <h2>বইয়ের তথ্য</h2>
+            <table>
+              <thead>
+                <tr><th>বইয়ের নাম</th><th>ক্যাটাগরি</th><th>স্টক</th></tr>
+              </thead>
+              <tbody id="bookInfoTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ট্যাব: Analytics -->
+    <div class="tab-content" id="tab-analytics">
+      <div class="panel">
+        <h2>বিক্রির ট্রেন্ড</h2>
+        <div class="chart-toggle">
+          <button class="btn small chart-period-btn active" data-period="weekly">গত ৭ দিন</button>
+          <button class="btn small chart-period-btn" data-period="monthly" style="background:#999;">গত ৩০ দিন</button>
+        </div>
+        <canvas id="salesTrendChart" height="90"></canvas>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="panel">
+          <h2>🏆 Best-Selling বই</h2>
+          <table>
+            <thead><tr><th>বই</th><th>বিক্রি (কপি)</th><th>মোট আয়</th></tr></thead>
+            <tbody id="bestSellingBody"></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>⚠️ Low Stock Alert</h2>
+          <table>
+            <thead><tr><th>বই</th><th>স্টক</th></tr></thead>
+            <tbody id="lowStockBody"></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>⭐ Top Rated বই</h2>
+          <table>
+            <thead><tr><th>বই</th><th>গড় রেটিং</th><th>রিভিউ সংখ্যা</th></tr></thead>
+            <tbody id="topRatedBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ট্যাব ২: Categories -->
+    <div class="tab-content" id="tab-categories">
+      <div class="panel">
+        <h2>নতুন ক্যাটাগরি যোগ করুন</h2>
+        <form id="categoryForm">
+          <div class="form-row">
+            <div>
+              <label>ক্যাটাগরির নাম</label>
+              <input type="text" id="categoryName" placeholder="যেমন: Fiction" required />
+            </div>
+          </div>
+          <button type="submit" class="btn">যোগ করুন</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>সব ক্যাটাগরি</h2>
+        <table>
+          <thead>
+            <tr><th>নাম</th><th>বইয়ের সংখ্যা</th><th>একশন</th></tr>
+          </thead>
+          <tbody id="categoryTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ট্যাব ৩: Books -->
+    <div class="tab-content" id="tab-books">
+      <div class="panel">
+        <h2 id="bookFormTitle">নতুন বই যোগ করুন</h2>
+        <form id="bookForm" enctype="multipart/form-data">
+          <input type="hidden" id="bookId" value="" />
+          <div class="form-row">
+            <div>
+              <label>বইয়ের নাম</label>
+              <input type="text" id="title" required />
+            </div>
+            <div>
+              <label>লেখক</label>
+              <input type="text" id="author" required />
+            </div>
+            <div>
+              <label>ক্যাটাগরি</label>
+              <select id="categoryId"></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label>দাম (টাকা)</label>
+              <input type="number" id="price" step="0.01" min="0" required />
+            </div>
+            <div>
+              <label>স্টক সংখ্যা</label>
+              <input type="number" id="stock" min="0" required />
+            </div>
+            <div>
+              <label>কভার ছবি</label>
+              <input type="file" id="coverImage" accept="image/*" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label>PDF ফাইল (ডিজিটাল ভার্সন, ঐচ্ছিক)</label>
+              <input type="file" id="pdfFile" accept="application/pdf" />
+              <p id="currentPdfNote" style="font-size:11px; color:#888; margin-top:4px;"></p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div style="grid-column: 1 / -1;">
+              <label>বর্ণনা</label>
+              <textarea id="description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label style="display:flex; align-items:center; gap:8px; font-weight:600;">
+                <input type="checkbox" id="isFeatured" style="width:auto;" />
+                ⭐ Featured/Bestseller হিসেবে চিহ্নিত করুন
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn" id="bookSubmitBtn">বই যোগ করুন</button>
+          <button type="button" class="btn small" id="cancelEditBtn" style="display:none; background:#999; margin-left:8px;">বাতিল</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>সব বই</h2>
+        <table>
+          <thead>
+            <tr><th>কভার</th><th>নাম</th><th>লেখক</th><th>ক্যাটাগরি</th><th>দাম</th><th>স্টক</th><th>একশন</th></tr>
+          </thead>
+          <tbody id="bookTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ট্যাব ৪: Orders -->
+    <div class="tab-content" id="tab-orders">
+      <div class="panel">
+        <h2>সব অর্ডার</h2>
+
+        <div class="bulk-action-bar">
+          <select id="bulkStatusSelect">
+            <option value="pending">Pending</option>
+            <option value="accepted">Accepted</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn small" id="applyBulkStatusBtn">সিলেক্ট করা অর্ডারে প্রয়োগ করুন</button>
+          <span id="bulkSelectedCount" class="bulk-count">০টা সিলেক্ট করা আছে</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAllOrders" /></th>
+              <th>অর্ডার আইডি</th>
+              <th>কাস্টমার</th>
+              <th>মোবাইল</th>
+              <th>ঠিকানা</th>
+              <th>বই</th>
+              <th>মোট</th>
+              <th>পেমেন্ট</th>
+              <th>অর্ডার Status</th>
+            </tr>
+          </thead>
+          <tbody id="orderTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal-overlay" id="orderDetailModal" style="display:none;">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 id="orderDetailModalTitle">অর্ডারের বিস্তারিত</h3>
+          <button id="closeOrderDetailModal">✕</button>
+        </div>
+        <div class="modal-body" id="orderDetailModalBody"></div>
+        <div class="modal-footer">
+          <button class="btn small" id="printInvoiceBtn">🖨 Invoice প্রিন্ট করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ট্যাব ৫: Reviews -->
+    <div class="tab-content" id="tab-reviews">
+      <div class="panel">
+        <h2>রিভিউ তালিকা</h2>
+        <div class="form-row" style="max-width: 300px;">
+          <div>
+            <label>ক্যাটাগরি অনুযায়ী ফিল্টার করুন</label>
+            <select id="reviewCategoryFilter">
+              <option value="">সব ক্যাটাগরি</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>বই</th>
+              <th>ক্যাটাগরি</th>
+              <th>ইউজার</th>
+              <th>রেটিং</th>
+              <th>মন্তব্য</th>
+              <th>তারিখ</th>
+            </tr>
+          </thead>
+          <tbody id="reviewTableBody"></tbody>
+        </table>
+        <p id="noReviewsMsg" style="display:none; text-align:center; color:#999; padding: 20px;">এই ক্যাটাগরিতে কোনো রিভিউ নেই।</p>
+      </div>
+    </div>
+
+    <!-- ট্যাব ৬: Wishlist -->
+    <div class="tab-content" id="tab-wishlist">
+      <div class="panel">
+        <h2>উইশলিস্ট সামারি</h2>
+        <div class="form-row" style="max-width: 300px;">
+          <div>
+            <label>ক্যাটাগরি অনুযায়ী ফিল্টার করুন</label>
+            <select id="wishlistCategoryFilter">
+              <option value="">সব ক্যাটাগরি</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>বইয়ের নাম</th>
+              <th>ক্যাটাগরি</th>
+              <th>কতজন উইশলিস্ট করেছে</th>
+            </tr>
+          </thead>
+          <tbody id="wishlistTableBody"></tbody>
+        </table>
+        <p id="noWishlistMsg" style="display:none; text-align:center; color:#999; padding: 20px;">এই ক্যাটাগরিতে কোনো উইশলিস্ট এন্ট্রি নেই।</p>
+      </div>
+    </div>
+
+    <!-- ট্যাব: Coupons -->
+    <div class="tab-content" id="tab-coupons">
+      <div class="panel">
+        <h2>নতুন কুপন তৈরি করুন</h2>
+        <form id="couponForm">
+          <div class="form-row">
+            <div>
+              <label>কুপন কোড</label>
+              <input type="text" id="couponCode" placeholder="যেমন: EID20" required style="text-transform: uppercase;" />
+            </div>
+            <div>
+              <label>ছাড়ের হার (%)</label>
+              <input type="number" id="couponDiscount" min="1" max="100" placeholder="যেমন: 20" required />
+            </div>
+            <div>
+              <label>মেয়াদ শেষের তারিখ (ঐচ্ছিক)</label>
+              <input type="date" id="couponExpiry" />
+            </div>
+          </div>
+          <button type="submit" class="btn">কুপন তৈরি করুন</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>সব কুপন</h2>
+        <table>
+          <thead>
+            <tr><th>কোড</th><th>ছাড়</th><th>মেয়াদ</th><th>স্ট্যাটাস</th><th>একশন</th></tr>
+          </thead>
+          <tbody id="couponTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ট্যাব: Activity Log -->
+    <div class="tab-content" id="tab-logs">
+      <div class="panel">
+        <h2>Admin Activity Log</h2>
+        <p style="font-size:12px; color:#999; margin-bottom:12px;">সাম্প্রতিক ১০০টা কার্যক্রম দেখাচ্ছে</p>
+        <button class="btn small" id="refreshLogsBtn" style="margin-bottom:12px;">🔄 রিফ্রেশ করুন</button>
+        <table>
+          <thead>
+            <tr><th>Admin</th><th>কাজ</th><th>বিস্তারিত</th><th>সময়</th></tr>
+          </thead>
+          <tbody id="logsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ট্যাব: Users -->
+    <div class="tab-content" id="tab-users">
+      <div class="panel">
+        <h2>রেজিস্টার করা সব ইউজার</h2>
+        <table>
+          <thead>
+            <tr><th>নাম</th><th>ইমেইল</th><th>টাইপ</th><th>স্ট্যাটাস</th><th>যোগদানের তারিখ</th><th>একশন</th></tr>
+          </thead>
+          <tbody id="userTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ট্যাব: Data Management (ঝুঁকিপূর্ণ) -->
+    <div class="tab-content" id="tab-datamanage">
+      <div class="panel danger-panel">
+        <h2>⚠️ সতর্কতা</h2>
+        <p style="font-size:13px; color:#721c24; line-height:1.6;">
+          নিচের কাজগুলো <strong>স্থায়ীভাবে ডাটাবেজ থেকে ডাটা মুছে ফেলবে</strong> — এটা ফিরিয়ে আনা যাবে না।
+          সাবধানে ব্যবহার করুন। বই বা ক্যাটাগরি মুছে ফেললে সংশ্লিষ্ট অর্ডার হিস্টোরিও প্রভাবিত হতে পারে।
+        </p>
+      </div>
+
+      <div class="danger-grid">
+        <div class="panel danger-card">
+          <h3>সব ক্যাটাগরি ডিলিট করুন</h3>
+          <p>ডাটাবেজে থাকা <strong id="categoryDangerCount">-</strong>টা ক্যাটাগরি একসাথে মুছে যাবে।</p>
+          <input type="text" class="danger-confirm-input" data-target="categories" placeholder='নিশ্চিত করতে DELETE লিখুন' />
+          <button class="btn danger-btn" id="deleteAllCategoriesBtn" disabled>সব ক্যাটাগরি ডিলিট করুন</button>
+        </div>
+
+        <div class="panel danger-card">
+          <h3>সব বই ডিলিট করুন</h3>
+          <p>ডাটাবেজে থাকা <strong id="bookDangerCount">-</strong>টা বই (কভার ও PDF সহ তথ্য) একসাথে মুছে যাবে।</p>
+          <input type="text" class="danger-confirm-input" data-target="books" placeholder='নিশ্চিত করতে DELETE লিখুন' />
+          <button class="btn danger-btn" id="deleteAllBooksBtn" disabled>সব বই ডিলিট করুন</button>
+        </div>
+
+        <div class="panel danger-card">
+          <h3>সব ইউজার ডিলিট করুন</h3>
+          <p>ডাটাবেজে থাকা <strong id="userDangerCount">-</strong>টা কাস্টমার একসাথে মুছে যাবে। <em>(Admin একাউন্ট বাদে)</em></p>
+          <input type="text" class="danger-confirm-input" data-target="users" placeholder='নিশ্চিত করতে DELETE লিখুন' />
+          <button class="btn danger-btn" id="deleteAllUsersBtn" disabled>সব ইউজার ডিলিট করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ইউজার অর্ডার হিস্টোরি Modal -->
+    <div class="modal-overlay" id="userOrdersModal" style="display:none;">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 id="userOrdersModalTitle">অর্ডার হিস্টোরি</h3>
+          <button id="closeUserOrdersModal">✕</button>
+        </div>
+        <div class="modal-body" id="userOrdersModalBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="accessDenied" class="access-denied" style="display:none;">
+    <h2>⛔ আপনার অ্যাডমিন অনুমতি নেই</h2>
+    <p>এই পেইজ দেখার অনুমতি শুধু অ্যাডমিনদের আছে।</p>
+    <a href="login.html">লগিন পেইজে ফিরে যান</a>
+  </div>
+
+  <script src="admin-script.js"></script>
+</body>
+</html>
