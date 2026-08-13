@@ -4,13 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const bookRoutes = require('./routes/books');
-const categoryRoutes = require('./routes/categories');
 const adminRoutes = require('./routes/admin');
-const cartRoutes = require('./routes/cart');
-const orderRoutes = require('./routes/orders');
-const reviewRoutes = require('./routes/reviews');
-const wishlistRoutes = require('./routes/wishlist');
-const couponRoutes = require('./routes/coupons');
+
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,13 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
-app.use('/api/categories', categoryRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/cart', cartRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/reviews', reviewRoutes);
-app.use('/api/wishlist', wishlistRoutes);
-app.use('/api/coupons', couponRoutes);
+
+
 
 // ফাইল আপলোড বা অন্যান্য error হ্যান্ডেল করার জন্য
 app.use((err, req, res, next) => {
