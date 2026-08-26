@@ -2,9 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const authRoutes = require('./routes/auth');
-const bookRoutes = require('./routes/books');
-const adminRoutes = require('./routes/admin');
+
 
 
 
@@ -20,10 +18,6 @@ app.use(cookieParser());
 // Static ফাইল (HTML, CSS, JS, uploaded ছবি) সার্ভ করা হচ্ছে
 app.use(express.static(path.join(__dirname, 'public')));
 
-// API routes
-app.use('/api/auth', authRoutes);
-app.use('/api/books', bookRoutes);
-app.use('/api/admin', adminRoutes);
 
 
 
