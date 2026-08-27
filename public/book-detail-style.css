@@ -1,0 +1,120 @@
+:root{
+  --navy:#2c2560;
+  --navy-dark:#221c4d;
+  --purple:#6c4fb6;
+  --purple-dark:#5b3fa0;
+  --red:#e12a2a;
+  --green:#1f9d55;
+}
+
+body{
+  font-family:"Noto Sans Bengali","Segoe UI",Arial,sans-serif;
+  background:#f7f7fb;
+}
+
+
+.navbar-custom{
+  background:var(--navy);
+}
+.navbar-custom .navbar-brand{
+  font-family:Georgia,'Times New Roman',serif;
+  font-style:italic;
+  font-weight:700;
+  color:#fff;
+}
+.navbar-custom .nav-link{
+  color:#e9e8f5 !important;
+  font-size:.92rem;
+}
+.navbar-custom .nav-link:hover{
+  color:#fff !important;
+}
+
+
+.breadcrumb-link{
+  color:var(--green);
+  text-decoration:none;
+  font-size:.92rem;
+}
+.breadcrumb-link:hover{
+  text-decoration:underline;
+}
+
+
+.product-card{
+  border:1px solid #e6e6ee;
+  border-radius:10px;
+}
+
+.cover-wrap{
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+  border-radius:6px;
+  overflow:hidden;
+}
+.cover-img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:280/420;
+}
+
+.book-title{
+  font-family:Georgia,'Times New Roman',serif;
+  font-style:italic;
+  font-weight:700;
+}
+.price-text{
+  font-weight:700;
+  font-size:1.9rem;
+}
+.stock-text{
+  color:var(--green);
+  font-weight:600;
+}
+.book-description{
+  line-height:1.7;
+  text-align: justify;
+}
+
+.qty-group input{
+  text-align:center;
+  max-width:60px;
+}
+.qty-group .btn{
+  width:42px;
+}
+
+.btn-cart{
+  background:var(--purple);
+  border-color:var(--purple);
+  font-weight:600;
+}
+.btn-cart:hover{
+  background:var(--purple-dark);
+  border-color:var(--purple-dark);
+}
+
+.btn-wishlist.active{
+  color:var(--red);
+  border-color:var(--red);
+}
+
+#toast{
+  background:var(--navy-dark);
+  z-index:1080;
+}
+
+
+@media (max-width:575.98px){
+  .book-title{
+    font-size:1.4rem;
+    text-align:center;
+  }
+  .text-center-sm{
+    text-align:center;
+  }
+  .cover-wrap{
+    max-width:240px;
+    margin:0 auto;
+  }
+}
