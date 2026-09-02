@@ -3,48 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookstore | সব বই</title>
-<<<<<<< HEAD
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="store-style.css" />
-</head>
-<body>
-  <header class="store-header">
-    <h1>Bookstore</h1>
-
-    <div class="header-search">
-      <input type="text" id="searchInput" placeholder="বই, লেখক বা ক্যাটাগরির নাম দিয়ে সার্চ করুন..." />
-      <select id="categoryFilter">
-        <option value="">সব ক্যাটাগরি</option>
-      </select>
-    </div>
-
-    <nav>
-      <a href="index.html">হোম</a>
-      <a href="ebooks.html">E-Book</a>
-      <a href="cart.html" id="cartLink">কার্ট <span id="cartCount" style="display:none;">0</span></a>
-      <a href="wishlist.html" id="wishlistLink">উইশলিস্ট</a>
-      <a href="profile.html" id="profileLink" style="display:none;">প্রোফাইল</a>
-      <a href="admin.html" id="adminDashboardLink" style="display:none;">Admin Dashboard</a>
-      <a href="login.html" id="loginLink">লগিন</a>
-      <button id="logoutBtn" style="display:none;">লগআউট</button>
-    </nav>
-  </header>
-
-=======
-  <link rel="stylesheet" href="store-style.css" />
+  <title>আমার কার্ট | Bookstore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-  
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="store-style.css" />
+  <link rel="stylesheet" href="cart-style.css" />
 </head>
 <body>
-<nav class="navbar navbar-expand-lg" style="background:rgb(20 125 229);">
+ <nav class="navbar navbar-expand-lg" style="background:rgb(20 125 229);">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Book-Store</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,23 +56,27 @@
     </div>
   </div>
 </nav>
->>>>>>> test
-  <section class="hero">
-    <p class="hero-eyebrow">অনলাইন বইয়ের দোকান</p>
-    <h2 class="hero-title">পড়ার মতো বই, খুঁজে নিন সহজে</h2>
-  </section>
 
   <div class="container">
-    <div id="featuredSection" style="display:none;">
-      <h2 class="section-title">Featured ও Bestseller</h2>
-      <div class="book-grid" id="featuredGrid"></div>
+    <h2 class="page-title">আমার কার্ট</h2>
+    <div id="message" class="message"></div>
+
+    <div id="cartItemsWrap"></div>
+
+    <div class="no-results" id="emptyCart" style="display:none;">
+      আপনার কার্ট খালি। <a href="index.html">বই দেখতে এখানে ক্লিক করুন</a>
     </div>
 
-    <h2 class="section-title" id="allBooksTitle">সব বই</h2>
-    <div class="book-grid" id="bookGrid"></div>
-    <div class="no-results" id="noResults" style="display:none;">কোনো বই পাওয়া যায়নি।</div>
+    <div class="cart-summary" id="cartSummary" style="display:none;">
+      <div class="total-row">
+        <span>মোট</span>
+        <span id="cartTotal">৳0</span>
+      </div>
+      <button class="btn checkout-btn" id="checkoutBtn">চেকআউট করুন</button>
+    </div>
   </div>
 
   <script src="store-script.js"></script>
+  
 </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Law of Human Nature — Bookstore</title>
@@ -25,10 +26,67 @@
         <li class="nav-item"><a class="nav-link" href="#">Admin Dashboard</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
       </ul>
+=======
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>বইয়ের বিস্তারিত | Bookstore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="store-style.css" />
+  <link rel="stylesheet" href="book-detail-style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg" style="background:rgb(20 125 229);">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Book-Store</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="ebooks.html">E-Book</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="cart.html">Cart<span id="cartCount" style="display:none;">0</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="wishlist.html">Wish List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="profile.html" style="display:none;">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="display:none;" href="admin.html">Admin Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <button id="logoutBtn" style="display:none;">Log Out</button>
+       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa-solid fa-bars"></i>
+  </a>
+      </ul>
+      <form class="d-flex" role="search">
+        <input id="searchInput" class="form-control me-2" type="search" placeholder="বই, লেখক বা ক্যাটাগরির নাম" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        
+      </form>
+>>>>>>> test
     </div>
   </div>
 </nav>
 
+<<<<<<< HEAD
 <div class="container mt-4">
   <a href="#" class="breadcrumb-link">← Go to shop</a>
 </div>
@@ -80,5 +138,42 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="book-detail-script.js"></script>
+=======
+  <div class="container">
+    <a href="index.html" class="back-link">← সব বইয়ে ফিরে যান</a>
+
+    <div id="message" class="message"></div>
+
+    <div id="bookDetailWrap"></div>
+    <div class="no-results" id="notFound" style="display:none;">বইটি পাওয়া যায়নি।</div>
+
+    <!-- রিভিউ সেকশন -->
+    <div class="panel review-panel" id="reviewPanel" style="display:none;">
+      <h3>রিভিউ ও রেটিং</h3>
+
+      <div class="review-summary" id="reviewSummary"></div>
+
+      <div class="review-form-box" id="reviewFormBox">
+        <h4>আপনার রিভিউ দিন</h4>
+        <form id="reviewForm">
+          <div class="star-input" id="starInput">
+            <span data-value="1">☆</span>
+            <span data-value="2">☆</span>
+            <span data-value="3">☆</span>
+            <span data-value="4">☆</span>
+            <span data-value="5">☆</span>
+          </div>
+          <textarea id="reviewComment" rows="3" placeholder="বইটি সম্পর্কে আপনার মতামত লিখুন (ঐচ্ছিক)"></textarea>
+          <button type="submit" class="btn">রিভিউ জমা দিন</button>
+        </form>
+      </div>
+
+      <div class="review-list" id="reviewList"></div>
+    </div>
+  </div>
+
+  <script src="store-script.js"></script>
+  <script src="book-detail-script.js"></script>
+>>>>>>> test
 </body>
 </html>

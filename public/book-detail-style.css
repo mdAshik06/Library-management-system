@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root{
   --navy:#2c2560;
   --navy-dark:#221c4d;
@@ -118,3 +119,317 @@ body{
     margin:0 auto;
   }
 }
+=======
+.back-link {
+  display: inline-block;
+  margin: 24px 0;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+}
+
+.back-link:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-ink);
+}
+
+.message {
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 14px;
+  display: none;
+  border: 1px solid transparent;
+}
+
+.message.error {
+  display: block;
+  background: #fdecea;
+  color: var(--color-danger);
+  border-color: #f5c2c0;
+}
+
+.message.success {
+  display: block;
+  background: #e8f7ee;
+  color: var(--color-success);
+  border-color: #b9e6c9;
+}
+
+.book-detail {
+  background: var(--color-surface);
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  border-radius: var(--radius-md);
+  padding: 36px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+}
+
+@media (max-width: 700px) {
+  .book-detail {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+}
+
+.book-detail .cover-large {
+  width: 100%;
+  height: 380px;
+  border-radius: var(--radius-sm);
+  background: #f0f0ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-faint);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.book-detail .cover-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-detail .detail-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--color-ink);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.book-detail .detail-author {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-bottom: 14px;
+}
+
+.book-detail .detail-price {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 10px;
+}
+
+.book-detail .detail-description {
+  font-size: 14px;
+  color: #3f3f42;
+  line-height: 1.75;
+  margin: 18px 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+}
+
+.detail-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.detail-qty-row .qty-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 4px 6px;
+}
+
+.detail-qty-row .qty-control button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--color-ink);
+}
+
+.detail-qty-row .qty-control span {
+  min-width: 20px;
+  text-align: center;
+  font-size: 14px;
+  font-family: var(--font-mono);
+}
+
+.detail-add-cart-btn {
+  padding: 12px 26px;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.detail-add-cart-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+.detail-add-cart-btn:disabled {
+  background: var(--color-border);
+  color: var(--color-faint);
+  cursor: not-allowed;
+}
+
+.wishlist-detail-btn {
+  display: block;
+  margin-top: 16px;
+  padding: 10px 18px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--color-muted);
+}
+
+.wishlist-detail-btn.active {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* রিভিউ সেকশন */
+.panel {
+  background: var(--color-surface);
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  margin-top: 20px;
+}
+
+.panel h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: var(--color-ink);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.review-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.review-summary .big-stars {
+  color: var(--color-amber);
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.review-summary .avg-number {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.review-form-box {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin-bottom: 24px;
+}
+
+.review-form-box h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-ink);
+}
+
+.star-input {
+  font-size: 24px;
+  color: var(--color-border);
+  cursor: pointer;
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+.star-input span {
+  transition: color 0.1s;
+}
+
+.star-input span.active {
+  color: var(--color-amber);
+}
+
+.review-form-box textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 10px;
+  font-family: var(--font-body);
+  background: var(--color-surface);
+}
+
+.review-item {
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px 0;
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-item .review-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.review-item .reviewer-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-ink);
+}
+
+.review-item .review-stars {
+  color: var(--color-amber);
+  font-size: 12px;
+}
+
+.review-item .review-date {
+  font-size: 11px;
+  color: var(--color-faint);
+}
+
+.review-item .review-comment {
+  font-size: 13px;
+  color: #3f3f42;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.review-item .delete-review-btn {
+  font-size: 11px;
+  color: var(--color-danger);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 6px;
+}
+>>>>>>> test

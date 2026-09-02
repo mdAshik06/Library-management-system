@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>চেকআউট | Bookstore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="store-style.css" />
+  <link rel="stylesheet" href="cart-style.css" />
+  <link rel="stylesheet" href="checkout-style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+ 
+<nav class="navbar navbar-expand-lg" style="background:rgb(20 125 229);">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Book-Store</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="ebooks.html">E-Book</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="cart.html">Cart<span id="cartCount" style="display:none;">0</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="wishlist.html">Wish List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="profile.html" style="display:none;">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="display:none;" href="admin.html" id="adminDashboardLink">Admin Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html" id="logoutBtn">Login</a>
+        </li>
+        <button id="logoutBtn" style="display:none;">Log Out</button>
+       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa-solid fa-bars"></i>
+  </a>
+      </ul>
+      <form class="d-flex" role="search">
+        <input id="searchInput" class="form-control me-2" type="search" placeholder="বই, লেখক বা ক্যাটাগরির নাম" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        
+      </form>
+    </div>
+  </div>
+</nav>
+  <div class="container">
+    <h2 class="page-title">চেকআউট</h2>
+    <div id="message" class="message"></div>
+
+    <div class="checkout-layout">
+      <!-- অর্ডার সামারি -->
+      <div class="panel">
+        <h3>আপনার অর্ডার</h3>
+        <div id="orderSummary"></div>
+
+        <div class="coupon-box">
+          <input type="text" id="couponInput" placeholder="কুপন কোড থাকলে দিন" style="text-transform: uppercase;" />
+          <button type="button" class="btn small" id="applyCouponBtn">প্রয়োগ করুন</button>
+        </div>
+        <p id="couponMessage" class="coupon-message"></p>
+
+        <div class="total-row" id="subtotalRow" style="font-size:14px; font-weight:400; display:none;">
+          <span>সাবটোটাল</span>
+          <span id="checkoutSubtotal">৳0</span>
+        </div>
+        <div class="total-row" id="discountRow" style="font-size:14px; font-weight:400; color:#1e7e34; display:none;">
+          <span>ছাড়</span>
+          <span id="checkoutDiscount">−৳0</span>
+        </div>
+        <div class="total-row">
+          <span>মোট</span>
+          <span id="checkoutTotal">৳0</span>
+        </div>
+      </div>
+
+      <!-- ডেলিভারি ও পেমেন্ট ফর্ম -->
+      <div class="panel">
+        <h3>ডেলিভারি তথ্য</h3>
+        <form id="checkoutForm">
+          <div class="form-group">
+            <label>পূর্ণ ঠিকানা</label>
+            <textarea id="shippingAddress" rows="3" placeholder="বাসা নং, রোড, এলাকা, শহর" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>মোবাইল নাম্বার</label>
+            <input type="tel" id="contactMobile" placeholder="01XXXXXXXXX" required />
+          </div>
+
+          <div class="form-group">
+            <label>পেমেন্ট মেথড</label>
+            <div class="payment-options">
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="Cash on Delivery" checked />
+                Cash on Delivery
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="bKash" />
+                bKash
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="Nagad" />
+                Nagad
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" id="transactionIdGroup" style="display:none;">
+            <label>Transaction ID</label>
+            <input type="text" id="transactionId" placeholder="যেমন: 8N7A2X9K1P" />
+            <p class="hint">*এটি একটি demo সিস্টেম, তাই যেকোনো Transaction ID দিলেই হবে</p>
+          </div>
+
+          <button type="submit" class="btn checkout-btn" id="placeOrderBtn">অর্ডার কনফার্ম করুন</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+</html>
