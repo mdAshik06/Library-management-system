@@ -7,15 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="store-style.css" />
-  <link rel="stylesheet" href="checkout-style.css" />
-  <link rel="stylesheet" href="profile-style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="store-style.css" />
+  <link rel="stylesheet" href="checkout-style.css" />
+  <link rel="stylesheet" href="profile-style.css" />
 </head>
 <body>
-<nav class="navbar navbar-expand-lg" style="background:rgb(20 125 229);">
+  <nav class="navbar navbar-expand-lg" style="background:rgb(20 125 229);">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Book-Store</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,30 +33,20 @@
           <a class="nav-link" href="cart.html">Cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="wishlist.html">Wish List</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="profile.html">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="display:none;" href="admin.html" id="adminDashboardLink">Admin Dashboard</a>
+          <a class="nav-link" style="display:none;" href="admin.html">Admin Dashboard</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="login.html">Login</a>
-        </li>
-        <button id="logoutBtn" style="display:none;">Log Out</button>
+        <button id="logoutBtn">Log Out</button>
        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa-solid fa-bars"></i>
   </a>
       </ul>
-      <form class="d-flex" role="search">
-        <input id="searchInput" class="form-control me-2" type="search" placeholder="বই, লেখক বা ক্যাটাগরির নাম" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-        
-      </form>
     </div>
   </div>
 </nav>
+
   <div class="container">
     <h2 class="page-title">আমার প্রোফাইল</h2>
     <div id="message" class="message"></div>
@@ -70,39 +60,45 @@
           <img id="profilePic" src="" alt="প্রোফাইল ছবি" class="profile-pic" />
         </div>
 
-        <form id="profileForm" enctype="multipart/form-data">
-          <div class="form-group">
-            <label>প্রোফাইল ছবি পরিবর্তন করুন</label>
-            <input type="file" id="profileImage" accept="image/*" />
-          </div>
+        <form id="profileForm" enctype="multipart/form-data" class="needs-validation" novalidate>
+  <!-- প্রোফাইল ছবি -->
+  <div class="mb-3">
+    <label for="profileImage" class="form-label fw-bold">প্রোফাইল ছবি পরিবর্তন করুন</label>
+    <input class="form-control" type="file" id="profileImage" accept="image/*">
+  </div>
 
-          <div class="form-group">
-            <label>পূর্ণ নাম</label>
-            <input type="text" id="fullName" required />
-          </div>
+  <!-- পূর্ণ নাম -->
+  <div class="mb-3">
+    <label for="fullName" class="form-label fw-bold">পূর্ণ নাম <span class="text-danger">*</span></label>
+    <input type="text" class="form-control" id="fullName" placeholder="আপনার পূর্ণ নাম লিখুন" required>
+    <div class="invalid-feedback">অনুগ্রহ করে আপনার নাম প্রদান করুন।</div>
+  </div>
 
-          <div class="form-group">
-            <label>ইমেইল</label>
-            <input type="email" id="email" disabled />
-            <p class="hint">ইমেইল পরিবর্তন করা যাবে না</p>
-          </div>
+  <!-- ইমেইল -->
+  <div class="mb-3">
+    <label for="email" class="form-label fw-bold">ইমেইল</label>
+    <input type="email" class="form-control" id="email" disabled>
+    <div class="form-text text-muted">ইমেইল পরিবর্তন করা যাবে না</div>
+  </div>
 
-          <div class="form-group">
-            <label>মোবাইল নাম্বার</label>
-            <input type="tel" id="mobile" placeholder="01XXXXXXXXX" />
-          </div>
+  <!-- মোবাইল নাম্বার -->
+  <div class="mb-3">
+    <label for="mobile" class="form-label fw-bold">মোবাইল নাম্বার</label>
+    <input type="tel" class="form-control" id="mobile" placeholder="01XXXXXXXXX">
+  </div>
 
-          <div class="form-group">
-            <label>ঠিকানা</label>
-            <textarea id="address" rows="3"></textarea>
-          </div>
+  <!-- ঠিকানা -->
+  <div class="mb-3">
+    <label for="address" class="form-label fw-bold">ঠিকানা</label>
+    <textarea class="form-control" id="address" rows="3" placeholder="আপনার ঠিকানা লিখুন"></textarea>
+  </div>
 
-          <button type="submit" class="btn" id="saveProfileBtn">আপডেট করুন</button>
-        </form>
-      </div>
+  <!-- বাটন -->
+  <button type="submit" class="btn btn-primary w-100" id="saveProfileBtn">আপডেট করুন</button>
+</form>
 
       <!-- অর্ডার হিস্টোরি -->
-      <div class="panel">
+      <div class="panel, mt-3">
         <h3>আমার অর্ডার হিস্টোরি</h3>
         <div id="orderHistory"></div>
         <div class="no-results" id="noOrders" style="display:none;">
