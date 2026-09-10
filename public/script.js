@@ -67,6 +67,19 @@ if (loginForm) {
       });
 
       const data = await res.json();
+
+      if (data.success) {
+        // JWT টোকেন browser এর localStorage এ সংরক্ষণ করা হচ্ছে
+        localStorage.setItem('token', data.token);
+        showMessage(data.message, 'success');
+        // Admin হলে সরাসরি Admin Dashboard এ, সাধারণ ইউজার হলে প্রোফাইল পেইজে
+        const redirectTo = data.user && data.user.isAdmin ? 'admin.html' : 'profile.html';
+        setTimeout(() => {
+          window.location.href = redirectTo;
+        }, 800);
+      } else {
+        showMessage(data.message, 'error');
+      }
     } catch (err) {
       showMessage('সার্ভারের সাথে সংযোগ করা যায়নি।', 'error');
     } finally {
