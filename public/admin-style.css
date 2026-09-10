@@ -10,41 +10,6 @@ body {
   min-height: 100vh;
 }
 
-.admin-header {
-  background: #2c2c54;
-  color: #fff;
-  padding: 16px 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.admin-header h1 {
-  font-size: 20px;
-}
-
-.admin-header nav a {
-  color: #cfcfff;
-  text-decoration: none;
-  margin-left: 18px;
-  font-size: 14px;
-}
-
-.admin-header nav a:hover {
-  color: #fff;
-}
-
-.admin-header button {
-  background: #764ba2;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  margin-left: 18px;
-}
-
 .container {
   max-width: 1100px;
   margin: 28px auto;
