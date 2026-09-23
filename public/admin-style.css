@@ -5,12 +5,44 @@
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-body, .container {
-    width: 100%;
-    max-width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    overflow-x: hidden;
+body {
+  background: #f4f5f7;
+  min-height: 100vh;
+}
+
+.admin-header {
+  background: #2c2c54;
+  color: #fff;
+  padding: 16px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header h1 {
+  font-size: 20px;
+}
+
+.admin-header nav a {
+  color: #cfcfff;
+  text-decoration: none;
+  margin-left: 18px;
+  font-size: 14px;
+}
+
+.admin-header nav a:hover {
+  color: #fff;
+}
+
+.admin-header button {
+  background: #764ba2;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-left: 18px;
 }
 
 .container {
@@ -467,35 +499,645 @@ table img.cover-thumb {
   color: #777;
   margin-top: 4px;
 }
-/* ৪. মোবাইল ভিউর জন্য Media Query */
-@media screen and (max-width: 768px) {
-    .tabs {
-        justify-content: center;
-    }
-    
-    .tab-btn {
-        flex: 1 1 calc(50% - 10px); /* মোবাইলে পাশাপাশি ২টি করে বাটন থাকবে */
-        font-size: 14px;
-        padding: 8px;
-    }
 
-    /* টেবিল রেসপন্সিভ বা স্ক্রোল করার জন্য */
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+
+/* Mobile Responsive */
+
+#adminContent {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
-.tabs {
+
+
+/* ---------------------------------------------------------
+   2. TABS
+--------------------------------------------------------- */
+
+#adminContent .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+#adminContent .tab-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+
+/* ---------------------------------------------------------
+   3. GENERAL BOX SIZING
+--------------------------------------------------------- */
+
+#adminContent *,
+#adminContent *::before,
+#adminContent *::after {
+    box-sizing: border-box;
+}
+
+
+/* ---------------------------------------------------------
+   4. PANELS
+--------------------------------------------------------- */
+
+#adminContent .panel {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+
+/* ---------------------------------------------------------
+   5. SUMMARY CARDS
+--------------------------------------------------------- */
+
+#adminContent .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+#adminContent .summary-card {
+    min-width: 0;
+}
+
+
+/* ---------------------------------------------------------
+   6. OVERVIEW GRID
+--------------------------------------------------------- */
+
+#adminContent .overview-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+}
+
+#adminContent .overview-left,
+#adminContent .overview-right {
+    min-width: 0;
+}
+
+
+/* ---------------------------------------------------------
+   7. ANALYTICS GRID
+--------------------------------------------------------- */
+
+#adminContent .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+#adminContent .analytics-grid .panel {
+    min-width: 0;
+}
+
+
+/* ---------------------------------------------------------
+   8. DANGER GRID
+--------------------------------------------------------- */
+
+#adminContent .danger-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+#adminContent .danger-card {
+    min-width: 0;
+}
+
+
+/* ---------------------------------------------------------
+   9. FORM ROW
+--------------------------------------------------------- */
+
+#adminContent .form-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+#adminContent .form-row > div {
+    min-width: 0;
+}
+
+#adminContent input,
+#adminContent select,
+#adminContent textarea {
+    max-width: 100%;
+}
+
+
+/* ---------------------------------------------------------
+   10. TABLE RESPONSIVE
+--------------------------------------------------------- */
+
+/*
+   Important:
+   Table নিজে shrink না হয়ে horizontal scroll করবে।
+   এতে mobile-এ column ভেঙে যাবে না।
+*/
+
+#adminContent .panel {
     overflow-x: auto;
-    overflow-y: hidden; /* কন্টেন্ট বড় হলে স্ক্রোল করার অনুমতি দেবে */
-    white-space: nowrap; /* লেখাগুলো ভেঙে নিচে না গিয়ে এক লাইনে থাকবে */
-    cursor: grab; /* মাউস কার্সার হাত চিহ্নের মতো দেখাবে */
-    user-select: none; /* ড্র্যাগ করার সময় টেক্সট সিলেক্ট হওয়া বন্ধ করবে */
-    -webkit-overflow-scrolling: touch; /* মোবাইলে আঙুল দিয়ে মসৃণ স্ক্রোলিং দেবে */
-   
 }
 
-.tabs:active {
-    cursor: grabbing; /* মাউস চেপে ধরলে হাতের মুষ্টি চিহ্নের মতো দেখাবে */
+#adminContent table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/*
+   Table-এর minimum width রাখা হয়েছে।
+   Mobile-এ user horizontal scroll করতে পারবে।
+*/
+
+#adminContent table th,
+#adminContent table td {
+    white-space: nowrap;
+}
+
+
+/* ---------------------------------------------------------
+   11. CHART
+--------------------------------------------------------- */
+
+#adminContent canvas {
+    max-width: 100% !important;
+}
+
+
+/* ---------------------------------------------------------
+   12. BULK ACTION BAR
+--------------------------------------------------------- */
+
+#adminContent .bulk-action-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#adminContent .bulk-action-bar select {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    /* Summary */
+
+    #adminContent .summary-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+
+    /* Overview */
+
+    #adminContent .overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* Analytics */
+
+    #adminContent .analytics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* Danger */
+
+    #adminContent .danger-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* Form */
+
+    #adminContent .form-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /* -----------------------------------------------------
+       MAIN CONTAINER
+    ----------------------------------------------------- */
+
+    #adminContent {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        overflow-x: hidden;
+    }
+
+
+    /* -----------------------------------------------------
+       TABS
+    ----------------------------------------------------- */
+
+    #adminContent .tabs {
+        display: flex;
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        gap: 8px;
+
+        padding: 5px 2px 12px;
+
+        margin-bottom: 15px;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: thin;
+    }
+
+    #adminContent .tabs::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    #adminContent .tab-btn {
+        flex: 0 0 auto;
+
+        min-width: max-content;
+
+        white-space: nowrap;
+
+        padding: 9px 14px;
+
+        font-size: 13px;
+    }
+
+
+    /* -----------------------------------------------------
+       SUMMARY CARDS
+    ----------------------------------------------------- */
+
+    #adminContent .summary-cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    #adminContent .summary-card {
+        width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       OVERVIEW
+    ----------------------------------------------------- */
+
+    #adminContent .overview-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       ANALYTICS
+    ----------------------------------------------------- */
+
+    #adminContent .analytics-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       DANGER
+    ----------------------------------------------------- */
+
+    #adminContent .danger-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       FORMS
+    ----------------------------------------------------- */
+
+    #adminContent .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+
+    #adminContent .form-row > div {
+        width: 100%;
+    }
+
+
+    #adminContent input[type="text"],
+    #adminContent input[type="number"],
+    #adminContent input[type="date"],
+    #adminContent input[type="file"],
+    #adminContent input[type="email"],
+    #adminContent select,
+    #adminContent textarea {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       BUTTONS
+    ----------------------------------------------------- */
+
+    #adminContent .btn {
+        max-width: 100%;
+    }
+
+
+    #adminContent .btn.small {
+        max-width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       BULK ACTION
+    ----------------------------------------------------- */
+
+    #adminContent .bulk-action-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    #adminContent .bulk-action-bar select,
+    #adminContent .bulk-action-bar button {
+        width: 100%;
+    }
+
+    #adminContent .bulk-count {
+        display: block;
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       TABLE
+    ----------------------------------------------------- */
+
+    #adminContent .panel {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #adminContent table {
+        min-width: 650px;
+    }
+
+
+    /* -----------------------------------------------------
+       BOOK TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-books table {
+        min-width: 800px;
+    }
+
+
+    /* -----------------------------------------------------
+       ORDER TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-orders table {
+        min-width: 1000px;
+    }
+
+
+    /* -----------------------------------------------------
+       USER TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-users table {
+        min-width: 700px;
+    }
+
+
+    /* -----------------------------------------------------
+       REVIEW TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-reviews table {
+        min-width: 750px;
+    }
+
+
+    /* -----------------------------------------------------
+       WISHLIST TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-wishlist table {
+        min-width: 600px;
+    }
+
+
+    /* -----------------------------------------------------
+       LOG TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-logs table {
+        min-width: 650px;
+    }
+
+
+    /* -----------------------------------------------------
+       COUPON TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-coupons table {
+        min-width: 600px;
+    }
+
+
+    /* -----------------------------------------------------
+       CATEGORY TABLE
+    ----------------------------------------------------- */
+
+    #adminContent #tab-categories table {
+        min-width: 550px;
+    }
+
+
+    /* -----------------------------------------------------
+       DATE INPUT
+    ----------------------------------------------------- */
+
+    #adminContent .date-input {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       CHART
+    ----------------------------------------------------- */
+
+    #adminContent .chart-toggle {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #adminContent .chart-toggle .btn {
+        flex: 1;
+        min-width: 120px;
+    }
+
+
+    /* -----------------------------------------------------
+       MODAL
+    ----------------------------------------------------- */
+
+    #adminContent .modal-overlay {
+        padding: 10px;
+    }
+
+    #adminContent .modal-box {
+        width: 100%;
+        max-width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    #adminContent .modal-header {
+        gap: 10px;
+    }
+
+    #adminContent .modal-header h3 {
+        font-size: 17px;
+    }
+
+
+    /* -----------------------------------------------------
+       DANGER INPUT
+    ----------------------------------------------------- */
+
+    #adminContent .danger-confirm-input {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       DANGER BUTTON
+    ----------------------------------------------------- */
+
+    #adminContent .danger-btn {
+        width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       MESSAGE
+    ----------------------------------------------------- */
+
+    #adminContent .message {
+        width: 100%;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    #adminContent {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+
+    /* Tabs */
+
+    #adminContent .tabs {
+        gap: 6px;
+    }
+
+    #adminContent .tab-btn {
+        font-size: 12px;
+        padding: 8px 11px;
+    }
+
+
+    /* Panels */
+
+    #adminContent .panel {
+        padding: 12px;
+    }
+
+
+    /* Headings */
+
+    #adminContent h2 {
+        font-size: 18px;
+    }
+
+    #adminContent h3 {
+        font-size: 16px;
+    }
+
+
+    /* Summary */
+
+    #adminContent .summary-card .value {
+        font-size: 24px;
+    }
+
+
+    /* Chart buttons */
+
+    #adminContent .chart-toggle {
+        flex-direction: column;
+    }
+
+    #adminContent .chart-toggle .btn {
+        width: 100%;
+    }
+
+
+    /* Form buttons */
+
+    #adminContent form .btn {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-top: 8px;
+    }
+
+
+    /* Modal */
+
+    #adminContent .modal-overlay {
+        padding: 6px;
+    }
+
+    #adminContent .modal-box {
+        max-height: 94vh;
+    }
 }
