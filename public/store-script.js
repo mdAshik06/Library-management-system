@@ -266,3 +266,56 @@ if (document.getElementById('bookGrid')) {
 }
 loadCartCount();
 
+
+// Responsive
+document.addEventListener("DOMContentLoaded", function () {
+
+    const header = document.querySelector(".store-header");
+    const nav = header.querySelector("nav");
+
+    // Create hamburger button automatically
+    const menuButton = document.createElement("button");
+
+    menuButton.className = "mobile-menu-btn";
+    menuButton.innerHTML = "☰";
+    menuButton.setAttribute("aria-label", "Open Menu");
+    menuButton.setAttribute("type", "button");
+
+    // Put button after h1
+    const title = header.querySelector("h1");
+    title.insertAdjacentElement("afterend", menuButton);
+
+
+    // Open / Close menu
+    menuButton.addEventListener("click", function () {
+
+        nav.classList.toggle("mobile-menu-open");
+
+        if (nav.classList.contains("mobile-menu-open")) {
+
+            menuButton.innerHTML = "✕";
+            menuButton.setAttribute("aria-label", "Close Menu");
+
+        } else {
+
+            menuButton.innerHTML = "☰";
+            menuButton.setAttribute("aria-label", "Open Menu");
+        }
+    });
+
+
+    // Close menu when a link is clicked
+    nav.querySelectorAll("a").forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            nav.classList.remove("mobile-menu-open");
+
+            menuButton.innerHTML = "☰";
+            menuButton.setAttribute("aria-label", "Open Menu");
+
+        });
+
+    });
+
+});
