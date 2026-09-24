@@ -55,6 +55,7 @@ async function loadSalesByDate() {
 document.getElementById('salesDate').addEventListener('change', loadSalesByDate);
 
 // আজকের তারিখ ডিফল্ট হিসেবে সেট করে সেই দিনের বিক্রি দেখানো হচ্ছে
+// (toISOString() UTC ব্যবহার করে বলে local timezone এ ভুল তারিখ দেখাতে পারে, তাই local date নিজে বানানো হচ্ছে)
 function setTodayAsDefaultSalesDate() {
   const now = new Date();
   const year = now.getFullYear();
