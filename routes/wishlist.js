@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(verifyToken);
 
-// ---------------- উইশলিস্টের সব আইটেম দেখা ----------------
+// --------- উইশলিস্টের সব আইটেম দেখা ---------
 router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query(
