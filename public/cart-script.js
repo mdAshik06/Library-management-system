@@ -1,150 +1,103 @@
-.page-title {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 24px;
-  margin: 12px 0 20px;
-  color: var(--color-ink);
+function showMessage(text, type) {
+  const box = document.getElementById('message');
+  if (!box) return;
+  box.textContent = text;
+  box.className = `message ${type}`;
+  setTimeout(() => { box.className = 'message'; }, 3000);
 }
 
-.cart-item {
-  background: var(--color-surface);
-  border: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 12px;
+function authHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`
+  };
 }
 
-.cart-item .thumb {
-  width: 56px;
-  height: 76px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  background: #f0f0ee;
-  flex-shrink: 0;
-  border: 1px solid var(--color-border);
+// ---------------- কার্টের আইটেম লোড করা ----------------
+async function loadCartItems() {
+  if (!localStorage.getItem('token')) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  const res = await fetch('/api/cart', { headers: authHeaders() });
+  const data = await res.json();
+
+  const wrap = document.getElementById('cartItemsWrap');
+  const emptyBox = document.getElementById('emptyCart');
+  const summaryBox = document.getElementById('cartSummary');
+  wrap.innerHTML = '';
+
+  if (!data.success || data.items.length === 0) {
+    emptyBox.style.display = 'block';
+    summaryBox.style.display = 'none';
+    return;
+  }
+
+  emptyBox.style.display = 'none';
+  summaryBox.style.display = 'block';
+
+  data.items.forEach((item) => {
+    const thumbHtml = item.cover_image
+      ? `<img src="${item.cover_image}" class="thumb" />`
+      : `<div class="thumb"></div>`;
+
+    wrap.innerHTML += `
+      <div class="cart-item" data-id="${item.id}">
+        ${thumbHtml}
+        <div class="details">
+          <div class="title">${item.title}</div>
+          <div class="author">${item.author}</div>
+          <div class="price">৳${item.price} প্রতিটি</div>
+          <button class="remove-btn" onclick="removeItem(${item.id})">🗑 সরিয়ে ফেলুন</button>
+        </div>
+        <div class="qty-control">
+          <button onclick="changeQty(${item.id}, ${item.quantity - 1})">−</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQty(${item.id}, ${item.quantity + 1})">+</button>
+        </div>
+        <div class="subtotal">৳${item.subtotal}</div>
+      </div>
+    `;
+  });
+
+  document.getElementById('cartTotal').textContent = `৳${data.total}`;
 }
 
-.cart-item .details {
-  flex: 1;
+// ---------------- quantity পরিবর্তন করা ----------------
+async function changeQty(itemId, newQty) {
+  if (newQty < 1) {
+    removeItem(itemId);
+    return;
+  }
+
+  const res = await fetch(`/api/cart/${itemId}`, {
+    method: 'PUT',
+    headers: authHeaders(),
+    body: JSON.stringify({ quantity: newQty })
+  });
+  const data = await res.json();
+
+  if (!data.success) {
+    showMessage(data.message, 'error');
+  }
+  loadCartItems();
+  loadCartCount(); // store-script.js এ থাকা ফাংশন, হেডারের কাউন্ট আপডেট করবে
 }
 
-.cart-item .details .title {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 15px;
-  color: var(--color-ink);
+// ---------------- কার্ট থেকে সরানো ----------------
+async function removeItem(itemId) {
+  const res = await fetch(`/api/cart/${itemId}`, { method: 'DELETE', headers: authHeaders() });
+  const data = await res.json();
+  showMessage(data.message, data.success ? 'success' : 'error');
+  loadCartItems();
+  loadCartCount();
 }
 
-.cart-item .details .author {
-  font-size: 12px;
-  color: var(--color-muted);
-}
+// ---------------- চেকআউট পেইজে যাওয়া ----------------
+document.getElementById('checkoutBtn').addEventListener('click', () => {
+  window.location.href = 'checkout.html';
+});
 
-.cart-item .details .price {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--color-muted);
-  margin-top: 4px;
-}
-
-.qty-control {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.qty-control button {
-  width: 26px;
-  height: 26px;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: 13px;
-  color: var(--color-ink);
-}
-
-.qty-control button:hover {
-  border-color: var(--color-border-strong);
-}
-
-.qty-control span {
-  min-width: 18px;
-  text-align: center;
-  font-size: 13px;
-  font-family: var(--font-mono);
-}
-
-.cart-item .subtotal {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  min-width: 80px;
-  text-align: right;
-  color: var(--color-ink);
-}
-
-.cart-item .remove-btn {
-  background: none;
-  border: none;
-  color: var(--color-danger);
-  cursor: pointer;
-  font-size: 11px;
-  margin-top: 6px;
-  letter-spacing: 0.2px;
-}
-
-.cart-summary {
-  background: var(--color-surface);
-  border: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  border-radius: var(--radius-md);
-  padding: 22px;
-  margin-top: 20px;
-}
-
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 17px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  font-family: var(--font-mono);
-}
-
-.checkout-btn {
-  width: 100%;
-}
-
-.checkout-note {
-  text-align: center;
-  font-size: 12px;
-  color: var(--color-faint);
-  margin-top: 8px;
-}
-
-.message {
-  padding: 11px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  margin-bottom: 14px;
-  display: none;
-  border: 1px solid transparent;
-}
-
-.message.error {
-  display: block;
-  background: #fdecea;
-  color: var(--color-danger);
-  border-color: #f5c2c0;
-}
-
-.message.success {
-  display: block;
-  background: #e8f7ee;
-  color: var(--color-success);
-  border-color: #b9e6c9;
-}
+// ---------------- শুরু করা ----------------
+loadCartItems();
